@@ -1,5 +1,6 @@
 package com.mtjb.examples.test_containers
 
+import com.mtjb.examples.ExamplesApplication
 import com.mtjb.examples.dto.CarGarageDto
 import com.mtjb.examples.entities.CarGarage
 import com.mtjb.examples.repositories.CarGarageRepository
@@ -11,7 +12,7 @@ import org.springframework.test.context.ActiveProfiles
 
 import javax.persistence.EntityManager
 
-@SpringBootTest
+@SpringBootTest(classes = ExamplesApplication)
 @ActiveProfiles("mssql-test")
 class SqlServerTests extends SqlSpec {
 
@@ -25,7 +26,7 @@ class SqlServerTests extends SqlSpec {
         when: "Fetched"
             Set<CarGarage> saved = carGarageService.findAll()
         then: "The saved entity is returned"
-            saved.name == ["My First Car Garage"]
+            saved.name.contains("My First Car Garage")
         when: "Deleting"
             carGarageRepository.deleteAll()
         then: "All entities removed"

@@ -7,6 +7,7 @@ import org.springframework.core.env.ConfigurableEnvironment
 import org.springframework.core.env.PropertiesPropertySource
 import org.springframework.test.context.ContextConfiguration
 import org.testcontainers.containers.MSSQLServerContainer
+import org.testcontainers.utility.DockerImageName
 import spock.lang.Shared
 import spock.lang.Specification
 
@@ -25,7 +26,7 @@ class SqlSpec extends Specification {
         @Override
         void initialize(ConfigurableApplicationContext configurableApplicationContext) {
 
-            mssqlServerContainer = new MSSQLServerContainer()
+            mssqlServerContainer = new MSSQLServerContainer("mcr.microsoft.com/azure-sql-edge:latest")
             mssqlServerContainer.start()
 
             ConfigurableEnvironment environment = configurableApplicationContext.getEnvironment()

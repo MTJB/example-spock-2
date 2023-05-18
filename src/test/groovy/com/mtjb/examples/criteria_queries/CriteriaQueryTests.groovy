@@ -1,5 +1,6 @@
 package com.mtjb.examples.criteria_queries
 
+import com.mtjb.examples.ExamplesApplication
 import com.mtjb.examples.dto.CarDto
 import com.mtjb.examples.dto.CarGarageDto
 import com.mtjb.examples.entities.Car
@@ -7,18 +8,21 @@ import com.mtjb.examples.entities.CarGarage
 import com.mtjb.examples.repositories.CarRepository
 import com.mtjb.examples.services.CarGarageService
 import com.mtjb.examples.services.CarService
+import com.mtjb.examples.test_profiles.SqlSpec
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.test.context.ContextConfiguration
-import spock.lang.Specification
+import org.springframework.test.context.ActiveProfiles
 
-@SpringBootTest
-@ContextConfiguration
-class CriteriaQueryTests extends Specification {
+@SpringBootTest(classes = ExamplesApplication)
+@ActiveProfiles("mssql-test")
+class CriteriaQueryTests extends SqlSpec {
 
-    @Autowired CarGarageService carGarageService
-    @Autowired CarService carService
-    @Autowired CarRepository carRepository
+    @Autowired
+    CarGarageService carGarageService
+    @Autowired
+    CarService carService
+    @Autowired
+    CarRepository carRepository
 
     def cleanup() {
         carRepository.deleteAll()
